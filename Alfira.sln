@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alfira", "Alfira\Alfira.csproj", "{F1E08F1C-CA83-4086-9748-067D9D89EE39}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1E08F1C-CA83-4086-9748-067D9D89EE39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1E08F1C-CA83-4086-9748-067D9D89EE39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1E08F1C-CA83-4086-9748-067D9D89EE39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1E08F1C-CA83-4086-9748-067D9D89EE39}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {87A011E0-6A69-4EA8-A5E4-8E162D55BA6A}
+	EndGlobalSection
+EndGlobal
