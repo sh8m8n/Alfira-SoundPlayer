@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Alfira.MVVM.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,17 @@ namespace Alfira
     /// </summary>
     public partial class MainWindow : Window
     {
+        SoundManager sm;
         public MainWindow()
         {
             InitializeComponent();
+            sm = new SoundManager();
+
+        }
+
+        private void Dispose_Click(object sender, RoutedEventArgs e)
+        {
+            sm.Dispose();
         }
     }
 }
