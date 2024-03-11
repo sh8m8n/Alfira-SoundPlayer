@@ -26,7 +26,6 @@ namespace Alfira
         {
             InitializeComponent();
             sm = new SoundManager();
-
         }
 
         private void Dispose_Click(object sender, RoutedEventArgs e)

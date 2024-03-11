@@ -4,52 +4,36 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Windows.Input;
-using System.Collections.Specialized;
 
 namespace Alfira.MVVM.Model
 {
     public class SoundManager : IDisposable
     {
-        private WaveOutEvent outputDevice;
+        private WaveOutEvent outputDevice = new WaveOutEvent() { DeviceNumber = -1 };
         private AudioFileReader currentAudioFile;
 
         private DirectoryInfo soundDirectory;
 
-        private Dictionary<HotKey, string> sounds;
+        private Dictionary<HotKey, string> sounds = new Dictionary<HotKey, string>();
         private HotKeyManager hotKeyManager;
 
         public SoundManager()
         {
+            // Возня с проводником
             soundDirectory = new DirectoryInfo("Sounds");
             if (!soundDirectory.Exists )
                 soundDirectory.Create();
 
-            sounds = new Dictionary<HotKey, string>();
-
+            //Хоткеи
             hotKeyManager = new HotKeyManager();
             hotKeyManager.KeyPressed += HotKeyManagerPressed;
-
-            outputDevice = new WaveOutEvent() { DeviceNumber = 6 };
+            
+            //Naudio
             outputDevice.PlaybackStopped += OnPlaybackStopped;
 
-            RefreshAllSounds();
+            SetOutputDevice(6); //Удалить этот костыль по возможности
 
-            //AddSound("C:\\Users\\Шаман\\Desktop\\sound.wav", "Баребух", 
-            //Key.F6, ModifierKeys.Alt | ModifierKeys.Shift,100);
-            AddSound("C:\\Users\\Шаман\\Desktop\\sad.wav", "Баребух",
-                Key.S, ModifierKeys.Alt | ModifierKeys.Shift,100);
-            AddSound("C:\\Users\\Шаман\\Desktop\\fortnitedeath.wav", "Баребух",
-                Key.D, ModifierKeys.Alt | ModifierKeys.Shift, 100);
-            AddSound("C:\\Users\\Шаман\\Desktop\\aaa.wav", "Баребух",
-                Key.A, ModifierKeys.Alt | ModifierKeys.Shift, 100);
-            AddSound("C:\\Users\\Шаман\\Desktop\\potion.wav", "Баребух",
-                Key.P, ModifierKeys.Alt | ModifierKeys.Shift, 100);
-            AddSound("C:\\Users\\Шаман\\Desktop\\Freddy.wav", "Баребух",
-                Key.F, ModifierKeys.Alt | ModifierKeys.Shift, 100);
-            AddSound("C:\\Users\\Шаман\\Desktop\\kratos.wav", "Баребух",
-                Key.K, ModifierKeys.Alt | ModifierKeys.Shift, 100);
-            AddSound("C:\\Users\\Шаман\\Desktop\\hui.wav", "Баребух",
-                Key.H, ModifierKeys.Alt | ModifierKeys.Shift, 100);
+            LoadAllSounds();
         }
 
 
@@ -60,7 +44,9 @@ namespace Alfira.MVVM.Model
                 outputDevice.Stop();
             }
 
-            currentAudioFile = new AudioFileReader(sounds[e.HotKey]);
+            string path = sounds[e.HotKey];
+            int volume = SoundFileConverter.GetVolume(path);
+            currentAudioFile = new AudioFileReader(path) { Volume = volume };
             outputDevice.Init(currentAudioFile);
             outputDevice.Play();
         }
@@ -71,9 +57,11 @@ namespace Alfira.MVVM.Model
             currentAudioFile.Dispose();
         }
 
-        private void RefreshAllSounds()
+        /// <summary>
+        /// Загружает все файлы из проводника в хеш таблицу
+        /// </summary>
+        private void LoadAllSounds()
         {
-            sounds.Clear();
             FileInfo[] soundFiles = soundDirectory.GetFiles();
             foreach (FileInfo file in soundFiles)
             {
@@ -83,7 +71,15 @@ namespace Alfira.MVVM.Model
                 sounds.Add(hotKey, file.FullName);
             }
         }
-
+        
+        /// <summary>
+        /// Копирует файл по указанному пути и добавляет в коллекцию звуков
+        /// </summary>
+        /// <param name="path">Существующий файл</param>
+        /// <param name="name">Название</param>
+        /// <param name="key"></param>
+        /// <param name="modKeys"></param>
+        /// <param name="Volume"></param>
         public void AddSound(string path, string name, Key key, ModifierKeys modKeys, int Volume)
         {
             HotKey hotKey = hotKeyManager.Register(key, modKeys);
@@ -99,19 +95,19 @@ namespace Alfira.MVVM.Model
         }
 
         /// <summary>
-        /// Sets output device
+        /// Устанавливает устройство вывода
         /// </summary>
         /// <param name="outputDeviceNumber"></param>
         public void SetOutputDevice(int outputDeviceNumber)
         {
             if (outputDeviceNumber < WaveOut.DeviceCount && outputDeviceNumber >= 0)
-                outputDevice = new WaveOutEvent() { DeviceNumber = outputDeviceNumber };
+                outputDevice = new WaveOutEvent() { DeviceNumber =  outputDeviceNumber };
         }
 
         /// <summary>
-        /// 
+        /// Возвращает доступные устройства вывода
         /// </summary>
-        /// <returns>Output devices names</returns>
+        /// <returns>Устройства вывода</returns>
         public string[] GetOutputDevices()
         {
             int count = WaveOut.DeviceCount;
