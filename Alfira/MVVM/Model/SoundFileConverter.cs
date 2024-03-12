@@ -25,6 +25,18 @@ namespace Alfira.MVVM.Model
         /// <param name="name">Название звука</param>
         /// <param name="hotkey"></param>
         /// <param name="Volume"></param>
+        public static void DecodeFile(string fileName, out string name,
+            out Key key, out ModifierKeys modKeys, out int Volume)
+        {
+            string[] file = fileName.Split('-');
+
+            name = file[0];
+
+            key = (Key)int.Parse(file[1]);
+            modKeys = (ModifierKeys)int.Parse(file[2]);
+
+            Volume = int.Parse(file[3]);
+        }
         public static void DecodeFile(string fileName, out string name, out HotKey hotkey, out int Volume)
         {
             string[] file = fileName.Split('-');
@@ -60,18 +72,6 @@ namespace Alfira.MVVM.Model
             string[] file = fileName.Split('-');
 
             volume = int.Parse(file[3]);
-        }
-
-        /// <summary>
-        /// Достает громкость из пути закодированного звукового файла
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public static int GetVolume(string path)
-        {
-            string name = Path.GetFileNameWithoutExtension(path);
-            DecodeFile(name, out int volume);
-            return volume;
         }
     }
 }

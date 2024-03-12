@@ -12,17 +12,17 @@ namespace Alfira.MVVM.Model
         private WaveOutEvent outputDevice = new WaveOutEvent() { DeviceNumber = -1 };
         private AudioFileReader currentAudioFile;
 
-        private DirectoryInfo soundDirectory;
+        private DirectoryInfo soundsDirectory;
 
-        private Dictionary<HotKey, string> sounds = new Dictionary<HotKey, string>();
+        private Dictionary<HotKey, SoundInfo> currentSounds = new Dictionary<HotKey, SoundInfo>();
         private HotKeyManager hotKeyManager;
 
         public SoundManager()
         {
             // Возня с проводником
-            soundDirectory = new DirectoryInfo("Sounds");
-            if (!soundDirectory.Exists )
-                soundDirectory.Create();
+            soundsDirectory = new DirectoryInfo("Sounds");
+            if (!soundsDirectory.Exists )
+                soundsDirectory.Create();
 
             //Хоткеи
             hotKeyManager = new HotKeyManager();
@@ -44,9 +44,8 @@ namespace Alfira.MVVM.Model
                 outputDevice.Stop();
             }
 
-            string path = sounds[e.HotKey];
-            int volume = SoundFileConverter.GetVolume(path);
-            currentAudioFile = new AudioFileReader(path) { Volume = volume };
+            SoundInfo soundInfo = currentSounds[e.HotKey];
+            currentAudioFile = new AudioFileReader(soundInfo.FilePath) { Volume = soundInfo.Volume };
             outputDevice.Init(currentAudioFile);
             outputDevice.Play();
         }
@@ -62,13 +61,12 @@ namespace Alfira.MVVM.Model
         /// </summary>
         private void LoadAllSounds()
         {
-            FileInfo[] soundFiles = soundDirectory.GetFiles();
+            FileInfo[] soundFiles = soundsDirectory.GetFiles();
             foreach (FileInfo file in soundFiles)
             {
-                string fileName = Path.GetFileNameWithoutExtension(file.Name);
-                SoundFileConverter.DecodeFile(fileName, out HotKey hotKey);
-                hotKeyManager.Register(hotKey);
-                sounds.Add(hotKey, file.FullName);
+                SoundInfo soundInfo = new SoundInfo(file.FullName);
+                hotKeyManager.Register(soundInfo.HotKey);
+                currentSounds.Add(soundInfo.HotKey, soundInfo);
             }
         }
         
@@ -87,11 +85,12 @@ namespace Alfira.MVVM.Model
             //Сохранение в проводнике
             FileInfo oldFile = new FileInfo(path);
             string ext = oldFile.Extension;
-            string newPath = Path.Combine(soundDirectory.FullName,
+            string newPath = Path.Combine(soundsDirectory.FullName,
                 SoundFileConverter.CodeSoundFile(name, hotKey, Volume)+ext);
             oldFile.CopyTo(newPath, true);
 
-            sounds.Add(hotKey, newPath);
+            SoundInfo soundInfo = new SoundInfo(newPath);
+            currentSounds.Add(hotKey, soundInfo);
         }
 
         /// <summary>
@@ -121,7 +120,7 @@ namespace Alfira.MVVM.Model
 
         public void Dispose()
         {
-            foreach (var sound in sounds)
+            foreach (var sound in currentSounds)
             {
                 hotKeyManager.Unregister(sound.Key);
             }

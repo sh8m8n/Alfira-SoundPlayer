@@ -103,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MVVM\Model\SoundFileConverter.cs" />
+    <Compile Include="MVVM\Model\SoundInfo.cs" />
     <Compile Include="MVVM\Model\SoundManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
