@@ -26,7 +26,7 @@ namespace Alfira.MVVM.Model
 
             //Хоткеи
             hotKeyManager = new HotKeyManager();
-            hotKeyManager.KeyPressed += HotKeyManagerPressed;
+            hotKeyManager.KeyPressed += OnHotKeyPressed;
             
             //Naudio
             outputDevice.PlaybackStopped += OnPlaybackStopped;
@@ -37,7 +37,7 @@ namespace Alfira.MVVM.Model
         }
 
 
-        private void HotKeyManagerPressed(object sender, KeyPressedEventArgs e)
+        private void OnHotKeyPressed(object sender, KeyPressedEventArgs e)
         {
             if (outputDevice.PlaybackState == PlaybackState.Playing)
             {
@@ -73,7 +73,7 @@ namespace Alfira.MVVM.Model
         }
         
         /// <summary>
-        /// Копирует файл по указанному пути и добавляет в коллекцию звуков
+        /// Копирует файл из указанного пути и добавляет в коллекцию звуков
         /// </summary>
         /// <param name="path">Существующий файл</param>
         /// <param name="name">Название</param>
@@ -121,11 +121,6 @@ namespace Alfira.MVVM.Model
 
         public void Dispose()
         {
-            foreach (var sound in sounds)
-            {
-                hotKeyManager.Unregister(sound.Key);
-            }
-
             outputDevice?.Dispose();
             currentAudioFile?.Dispose();
 
