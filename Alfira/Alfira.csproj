@@ -132,7 +132,7 @@
     <Folder Include="MVVM\View\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\GlobalHotKey\GlobalHotKey\GlobalHotKey.csproj">
+    <ProjectReference Include="..\..\GlobalHotKey\GlobalHotKey.csproj">
       <Project>{309c707f-4dfa-4412-9f54-4c0627b626af}</Project>
       <Name>GlobalHotKey</Name>
     </ProjectReference>

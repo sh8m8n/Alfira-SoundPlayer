@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alfira", "Alfira\Alfira.csproj", "{F1E08F1C-CA83-4086-9748-067D9D89EE39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalHotKey", "..\GlobalHotKey\GlobalHotKey\GlobalHotKey.csproj", "{309C707F-4DFA-4412-9F54-4C0627B626AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalHotKey", "..\GlobalHotKey\GlobalHotKey.csproj", "{309C707F-4DFA-4412-9F54-4C0627B626AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
