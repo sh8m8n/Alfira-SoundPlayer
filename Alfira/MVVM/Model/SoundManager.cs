@@ -58,7 +58,7 @@ namespace Alfira.MVVM.Model
         }
 
         /// <summary>
-        /// Загружает все файлы из проводника в хеш таблицу
+        /// Загружает все файлы из проводника в список
         /// </summary>
         private void LoadAllSounds()
         {

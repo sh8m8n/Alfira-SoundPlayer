@@ -4,9 +4,48 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Alfira"
+        xmlns:viewmodel="clr-namespace:Alfira.MVVM.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button x:Name="Dispose" Content="Dispose" Click="Dispose_Click"/>
-    </Grid>
+        Height="600" Width="350"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode ="NoResize"
+        Background ="Transparent"
+        FontSize="14">
+    
+    <Window.DataContext>
+        <viewmodel:MainViewModel/>
+    </Window.DataContext>
+
+    <Border Background="{DynamicResource Background}" CornerRadius="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Border Background="{DynamicResource DarkerBackground}" CornerRadius="10"
+                    MouseDown="Border_MouseDown">
+                <Grid HorizontalAlignment="Stretch">
+                    <Label Content="Alfira" Foreground="{DynamicResource Text}"
+                           VerticalAlignment="Center" Margin="3,0,0,0"/>
+
+                    <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center"
+                                Orientation="Horizontal" Margin="0,0,5,0">
+                        
+                        <Button Style="{StaticResource MenuButton}" Margin="0,0,0,3"
+                                Background="{StaticResource DarkerBackground}"
+                                Content = "_" Foreground="{StaticResource Text}"
+                                Click="ButtonMinimize_Click"/>
+                        
+                        <Button Style="{StaticResource MenuButton}"
+                                Background="{StaticResource DarkerBackground}"
+                                Content = "🗙" Foreground="{StaticResource Text}"
+                                Click="ButtonClose_Click"/>
+                        
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
 </Window>

@@ -21,16 +21,27 @@ namespace Alfira
     /// </summary>
     public partial class MainWindow : Window
     {
-        SoundManager sm;
         public MainWindow()
         {
             InitializeComponent();
-            sm = new SoundManager();
         }
 
-        private void Dispose_Click(object sender, RoutedEventArgs e)
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            sm.Dispose();
+            if(e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
+
+        private void ButtonMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+        }
+
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }
