@@ -6,8 +6,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Themes/Alfira.xaml"/>
-                <ResourceDictionary Source="Styles/Buttons.xaml"/>
+                <ResourceDictionary Source="./Themes/Alfira.xaml"/>
+                <ResourceDictionary Source="./Styles/Buttons.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

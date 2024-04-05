@@ -27,25 +27,35 @@
             <Border Background="{DynamicResource DarkerBackground}" CornerRadius="10"
                     MouseDown="Border_MouseDown">
                 <Grid HorizontalAlignment="Stretch">
-                    <Label Content="Alfira" Foreground="{DynamicResource Text}"
-                           VerticalAlignment="Center" Margin="3,0,0,0"/>
+
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center"
+                                Orientation="Horizontal">
+
+                        <Button Style="{StaticResource MenuButton}" Margin="3,0,0,0" Content="S"
+                                Foreground="{DynamicResource Text}"/>
+
+                        <Label Content="Alfira" Foreground="{DynamicResource Text}"
+                                VerticalAlignment="Center" Margin="3,0,0,0"/>
+
+                    </StackPanel>
 
                     <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center"
                                 Orientation="Horizontal" Margin="0,0,5,0">
-                        
+
                         <Button Style="{StaticResource MenuButton}" Margin="0,0,0,3"
-                                Background="{StaticResource DarkerBackground}"
                                 Content = "_" Foreground="{StaticResource Text}"
                                 Click="ButtonMinimize_Click"/>
-                        
+
                         <Button Style="{StaticResource MenuButton}"
-                                Background="{StaticResource DarkerBackground}"
                                 Content = "🗙" Foreground="{StaticResource Text}"
                                 Click="ButtonClose_Click"/>
-                        
+
                     </StackPanel>
                 </Grid>
             </Border>
+
+            <ListView ItemsSource="{Binding Sounds}" Grid.Row="2"
+                      Background="Transparent" BorderThickness="0"/>
         </Grid>
     </Border>
 </Window>

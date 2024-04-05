@@ -137,7 +137,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Icons\" />
     <Folder Include="MVVM\View\" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +144,9 @@
       <Project>{309c707f-4dfa-4412-9f54-4c0627b626af}</Project>
       <Name>GlobalHotKey</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\settings.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
