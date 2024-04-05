@@ -4,26 +4,25 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Windows.Input;
+using System.Text.Json;
+using System.Media;
 
 namespace Alfira.MVVM.Model
 {
     public class SoundManager : IDisposable
     {
-        private WaveOutEvent outputDevice = new WaveOutEvent() { DeviceNumber = -1 };
-        private AudioFileReader currentAudioFile;
-
-        private DirectoryInfo soundsDirectory;
-
         private List<Sound> sounds = new List<Sound>();
+        private AudioFileReader currentAudioFile;
+        private WaveOutEvent outputDevice = new WaveOutEvent() { DeviceNumber = -1 };
+
+        private DirectoryInfo soundsDirectory = new DirectoryInfo("Sounds");
+
         private HotKeyManager hotKeyManager;
+
+        private FileInfo soundsData = new FileInfo("sounds.json");
 
         public SoundManager()
         {
-            // Возня с проводником
-            soundsDirectory = new DirectoryInfo("Sounds");
-            if (!soundsDirectory.Exists )
-                soundsDirectory.Create();
-
             //Хоткеи
             hotKeyManager = new HotKeyManager();
             hotKeyManager.KeyPressed += OnHotKeyPressed;
@@ -33,7 +32,7 @@ namespace Alfira.MVVM.Model
 
             SetOutputDevice(6); //Удалить этот костыль по возможности
 
-            LoadAllSounds();
+            LoadData();
         }
 
 
@@ -58,17 +57,23 @@ namespace Alfira.MVVM.Model
         }
 
         /// <summary>
-        /// Загружает все файлы из проводника в список
+        /// Загружает файлы и настройки из проводника
         /// </summary>
-        private void LoadAllSounds()
+        private void LoadData()
         {
-            FileInfo[] soundFiles = soundsDirectory.GetFiles();
-            foreach (FileInfo file in soundFiles)
-            {
-                Sound sound = new Sound(file);
+            sounds = JsonSerializer.Deserialize<List<Sound>>(File.ReadAllText(soundsData.FullName));
+
+            foreach (var sound in sounds)
                 hotKeyManager.Register(sound);
-                sounds.Add(new Sound(file));
-            }
+        }
+
+
+        /// <summary>
+        /// Сохраняет файлы и настройки в проводник
+        /// </summary>
+        private void SaveData()
+        {
+            File.WriteAllText(soundsData.FullName, JsonSerializer.Serialize(sounds));
         }
         
         /// <summary>
@@ -81,7 +86,7 @@ namespace Alfira.MVVM.Model
         /// <param name="volume"></param>
         public void AddSound(string path, string name, Key key, ModifierKeys modifiers, int volume)
         {
-            Sound sound = new Sound(path, soundsDirectory, name, key, modifiers, volume);
+            Sound sound = new Sound(path, name, key, modifiers, volume);
             hotKeyManager.Register(sound);
             sounds.Add(sound);
         }
@@ -113,6 +118,7 @@ namespace Alfira.MVVM.Model
 
         public void Dispose()
         {
+            SaveData();
             outputDevice?.Dispose();
             currentAudioFile?.Dispose();
 
