@@ -13,10 +13,6 @@
         Background ="Transparent"
         FontSize="14">
     
-    <Window.DataContext>
-        <viewmodel:MainViewModel/>
-    </Window.DataContext>
-
     <Border Background="{DynamicResource Background}" CornerRadius="10">
         <Grid>
             <Grid.RowDefinitions>
@@ -48,14 +44,16 @@
 
                         <Button Style="{StaticResource MenuButton}"
                                 Content = "🗙" Foreground="{StaticResource Text}"
-                                Click="ButtonClose_Click"/>
+                                Click="ButtonClose_Click" Command="{Binding CloseCommand}"/>
 
                     </StackPanel>
                 </Grid>
             </Border>
 
             <ListView ItemsSource="{Binding Sounds}" Grid.Row="2"
-                      Background="Transparent" BorderThickness="0"/>
+                      Background="Transparent" BorderThickness="0"
+                      ItemContainerStyle="{StaticResource SoundItem}">
+            </ListView>
         </Grid>
     </Border>
 </Window>

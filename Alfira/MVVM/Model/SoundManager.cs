@@ -6,12 +6,16 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using System.Text.Json;
 using System.Media;
+using System.Collections.ObjectModel;
 
 namespace Alfira.MVVM.Model
 {
     public class SoundManager : IDisposable
     {
-        private List<Sound> sounds = new List<Sound>();
+        private readonly ObservableCollection<Sound> sounds =
+            JsonSerializer.Deserialize<ObservableCollection<Sound>>(File.ReadAllText("sounds.json"));
+        public readonly ReadOnlyObservableCollection<Sound> Sounds;
+
         private AudioFileReader currentAudioFile;
         private WaveOutEvent outputDevice = new WaveOutEvent() { DeviceNumber = -1 };
 
@@ -23,16 +27,18 @@ namespace Alfira.MVVM.Model
 
         public SoundManager()
         {
+            Sounds = new ReadOnlyObservableCollection<Sound>(sounds);
+
             //Хоткеи
             hotKeyManager = new HotKeyManager();
             hotKeyManager.KeyPressed += OnHotKeyPressed;
-            
+            foreach (var sound in sounds)
+                hotKeyManager.Register(sound);
+
             //Naudio
             outputDevice.PlaybackStopped += OnPlaybackStopped;
 
             SetOutputDevice(6); //Удалить этот костыль по возможности
-
-            LoadData();
         }
 
 
@@ -55,18 +61,6 @@ namespace Alfira.MVVM.Model
             outputDevice.Dispose();
             currentAudioFile.Dispose();
         }
-
-        /// <summary>
-        /// Загружает файлы и настройки из проводника
-        /// </summary>
-        private void LoadData()
-        {
-            sounds = JsonSerializer.Deserialize<List<Sound>>(File.ReadAllText(soundsData.FullName));
-
-            foreach (var sound in sounds)
-                hotKeyManager.Register(sound);
-        }
-
 
         /// <summary>
         /// Сохраняет файлы и настройки в проводник

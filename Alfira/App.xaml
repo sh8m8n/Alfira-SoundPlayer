@@ -8,6 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="./Themes/Alfira.xaml"/>
                 <ResourceDictionary Source="./Styles/Buttons.xaml"/>
+                <ResourceDictionary Source="./Styles/SoundItem.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -6,8 +6,8 @@ namespace Alfira.MVVM.Model
     public class Sound : HotKey
     {
         public string Name { get; set; }
-        public string FilePath { get; set; }
         public int Volume { get; set; }
+        public string FilePath { get; }
 
         public Sound(string filePath, string name, Key key, ModifierKeys modifiers, int volume)
             : base(key, modifiers)

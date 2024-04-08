@@ -1,4 +1,5 @@
 ﻿using Alfira.MVVM.Model;
+using Alfira.MVVM.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace Alfira
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new MainViewModel();
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
