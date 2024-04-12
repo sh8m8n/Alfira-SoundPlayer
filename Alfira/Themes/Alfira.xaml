@@ -3,7 +3,7 @@
     <SolidColorBrush x:Key="Text" Color="#f3dfdf"/>
     <SolidColorBrush x:Key="Background" Color="#120606"/>
     <SolidColorBrush x:Key="DarkerBackground" Color="#060000"/>
-    <SolidColorBrush x:Key="Primary" Color="#e28b88"/>
-    <SolidColorBrush x:Key="Secondary" Color="#901e1b"/>
+    <SolidColorBrush x:Key="Primary" Color="#901e1b"/>
+    <SolidColorBrush x:Key="Secondary" Color="#e28b88"/>
     <SolidColorBrush x:Key="Accent" Color="#e2241e"/>
 </ResourceDictionary>

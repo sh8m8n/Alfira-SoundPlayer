@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Alfira.MVVM.ViewModel
 {
@@ -15,16 +16,18 @@ namespace Alfira.MVVM.ViewModel
 
         public ReadOnlyObservableCollection<Sound> Sounds => SoundManager.Sounds;
 
-        public RelayCommand CloseCommand;
+        public RelayCommand CloseCommand { get; set; }
+        public RelayCommand DeleteCommand { get; set; }
 
         public MainViewModel()
         {
-            CloseCommand = new RelayCommand(Close);
+            CloseCommand = new RelayCommand(OnApplicationClose);
         }
 
-        private void Close()
+        private void OnApplicationClose()
         {
             SoundManager.Dispose();
+            Application.Current.Shutdown();
         }
     }
 }

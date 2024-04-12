@@ -41,10 +41,5 @@ namespace Alfira
         {
             Application.Current.MainWindow.WindowState = WindowState.Minimized;
         }
-
-        private void ButtonClose_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
     }
 }
