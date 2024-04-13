@@ -86,6 +86,15 @@ namespace Alfira.MVVM.Model
         }
 
         /// <summary>
+        /// Удаляет звук из коллекции
+        /// </summary>
+        /// <param name="sound"></param>
+        public void RemoveSound(Sound sound)
+        {
+            sounds.Remove(sound);
+        }
+
+        /// <summary>
         /// Устанавливает устройство вывода
         /// </summary>
         /// <param name="outputDeviceNumber"></param>

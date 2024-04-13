@@ -18,6 +18,7 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
@@ -63,12 +64,25 @@
                 </Grid>
             </Border>
             
+            <!--Add Sound-->
+            <Button Style="{StaticResource MenuButton}"
+                    Grid.Row="1"
+                    Content="+Add Sound"
+                    Height="40"
+                    Width="340"
+                    Foreground ="{DynamicResource Text}"
+                    Background="{StaticResource Secondary}"
+                    FontSize="16"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Margin="5"/>
+
             <!--Sounds-->
             <ItemsControl ItemsSource="{Binding Sounds}"
                           Grid.Row="2"
                           Background="Transparent"
                           BorderThickness="0"
-                          Margin="5,5,5,0">
+                          Margin="5,0,5,0">
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -120,8 +134,8 @@
 
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="55"/>
-                                            <ColumnDefinition Width="25"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="26"/>
                                         </Grid.ColumnDefinitions>
 
                                         <Slider Value="{Binding Volume}"
@@ -129,11 +143,11 @@
                                                 Minimum="0"
                                                 Maximum="100"
                                                 VerticalAlignment="Center"/>
-                                        <TextBox Text="{Binding Volume}"
+                                        <TextBlock Text="{Binding Volume}"
                                                  Grid.Column ="1"
+                                                 HorizontalAlignment="Center"
                                                  Background="Transparent"
-                                                 Foreground="{DynamicResource Text}"
-                                                 BorderThickness="0"/>
+                                                 Foreground="{DynamicResource Text}"/>
                                     </Grid>
                                 </Border>
                                 
@@ -144,7 +158,8 @@
                                         Margin="5,0,5,0">
                                     
                                     <Button Style="{StaticResource MenuButton}"
-                                            Command="{Binding DeleteCommand}">
+                                            Command="{Binding DeleteCommand}"
+                                            CommandParameter="{Binding}">
                                         
                                         <Image Source="./Icons/settings.ico"/>
                                         
