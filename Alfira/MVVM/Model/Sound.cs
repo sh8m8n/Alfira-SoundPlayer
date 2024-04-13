@@ -1,4 +1,5 @@
-﻿using GlobalHotKey;
+﻿using CommunityToolkit.Mvvm.Input;
+using GlobalHotKey;
 using System.Windows.Input;
 
 namespace Alfira.MVVM.Model

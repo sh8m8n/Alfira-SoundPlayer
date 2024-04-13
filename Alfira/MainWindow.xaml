@@ -32,12 +32,14 @@
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center">
-
+                        
+                        <!--Settings-->
                         <Button Style="{StaticResource MenuButton}"
                                 Content="S"
                                 Foreground="{DynamicResource Text}"
                                 Margin="3,0,0,0"/>
 
+                        <!--Title-->
                         <Label Content="Alfira"
                                Foreground="{DynamicResource Text}"
                                VerticalAlignment="Center"
@@ -49,13 +51,15 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Margin="0,0,5,0">
-
+                        
+                        <!--Minimize-->
                         <Button Style="{StaticResource MenuButton}"
                                 Content = "_"
                                 Foreground="{StaticResource Text}"
                                 Margin="0,0,0,3"
                                 Click="ButtonMinimize_Click"/>
 
+                        <!--Exit-->
                         <Button Style="{StaticResource MenuButton}"
                                 Content = "🗙" Foreground="{StaticResource Text}"
                                 Command="{Binding CloseCommand}"/>
@@ -75,7 +79,8 @@
                     FontSize="16"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    Margin="5"/>
+                    Margin="5"
+                    Command="{Binding AddCommand}"/>
 
             <!--Sounds-->
             <ItemsControl ItemsSource="{Binding Sounds}"
@@ -158,7 +163,7 @@
                                         Margin="5,0,5,0">
                                     
                                     <Button Style="{StaticResource MenuButton}"
-                                            Command="{Binding DeleteCommand}"
+                                            Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
                                             CommandParameter="{Binding}">
                                         
                                         <Image Source="./Icons/settings.ico"/>

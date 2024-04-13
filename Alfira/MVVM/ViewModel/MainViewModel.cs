@@ -35,7 +35,6 @@ namespace Alfira.MVVM.ViewModel
 
         public void AddSound()
         {
-
         }
 
         private void DeleteSound(object parameter)
