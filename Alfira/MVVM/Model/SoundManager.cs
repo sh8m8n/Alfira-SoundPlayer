@@ -2,8 +2,10 @@
 using NAudio.Wave;
 using System;
 using System.IO;
+using System.Collections.Generic;
 using System.Windows.Input;
 using System.Text.Json;
+using System.Media;
 using System.Collections.ObjectModel;
 
 namespace Alfira.MVVM.Model
@@ -78,11 +80,7 @@ namespace Alfira.MVVM.Model
         /// <param name="volume"></param>
         public void AddSound(string path, string name, Key key, ModifierKeys modifiers, int volume)
         {
-            FileInfo soundFile = new FileInfo(path);
-            string newPath = Path.Combine(soundsDirectory.FullName, name + soundFile.Extension);
-            soundFile.CopyTo(newPath);
-
-            Sound sound = new Sound(newPath, name, key, modifiers, volume);
+            Sound sound = new Sound(path, name, key, modifiers, volume);
             hotKeyManager.Register(sound);
             sounds.Add(sound);
         }
