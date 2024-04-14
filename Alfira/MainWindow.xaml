@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Alfira"
-        xmlns:viewmodel="clr-namespace:Alfira.MVVM.ViewModel"
         mc:Ignorable="d"
         Height="600" Width="350"
         WindowStyle="None"
@@ -71,14 +70,12 @@
             <!--Add Sound-->
             <Button Style="{StaticResource MenuButton}"
                     Grid.Row="1"
-                    Content="+Add Sound"
+                    Content="+Add Sound (.wav)"
                     Height="40"
                     Width="340"
                     Foreground ="{DynamicResource Text}"
                     Background="{StaticResource Secondary}"
                     FontSize="16"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
                     Margin="5"
                     Command="{Binding AddCommand}"/>
 
@@ -110,9 +107,7 @@
                                         CornerRadius="5"
                                         Margin="5,0,0,0">
                                     <TextBox Text="{Binding Name}"
-                                             Background="Transparent"
-                                             Foreground="{DynamicResource Text}"
-                                             BorderThickness="0"
+                                             Style="{StaticResource AlfiraTextBox}"
                                              Margin="5,0,0,0"/>
                                 </Border>
 
@@ -148,6 +143,7 @@
                                                 Minimum="0"
                                                 Maximum="100"
                                                 VerticalAlignment="Center"/>
+                                        
                                         <TextBlock Text="{Binding Volume}"
                                                  Grid.Column ="1"
                                                  HorizontalAlignment="Center"

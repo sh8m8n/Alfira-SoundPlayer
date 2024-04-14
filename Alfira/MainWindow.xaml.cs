@@ -26,7 +26,7 @@ namespace Alfira
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new MainViewModel();
+            this.DataContext = new MainViewModel(this);
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
