@@ -58,12 +58,13 @@ namespace Alfira.MVVM.ViewModel
 
             if(creatingwindow.Success == true)
             {
-                name = creatingwindow.Name;
+                name = creatingwindow.SoundName;
                 key = creatingwindow.key;
                 modifiers = creatingwindow.modifiers;
-            }
+                volume = creatingwindow.Volume;
 
-            //soundManager.AddSound(filepath, name, key, modifiers, volume);
+                soundManager.AddSound(filepath, name, key, modifiers, volume);
+            }
         }
 
         private void DeleteSound(object parameter)

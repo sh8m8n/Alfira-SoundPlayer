@@ -48,14 +48,24 @@
                      Margin="5,0,5,0"
                      Text="{Binding Name}"/>
 
-            <Button x:Name="btn_Hotkey"
-                    Style="{DynamicResource BorderButton}"
-                    Grid.Column="1" Grid.Row="1"
-                    Height="40" Width="100"
-                    HorizontalAlignment="Left"
-                    Margin="5,0,0,0"
-                    Content="{Binding StringHotKey}"
-                    Click="btn_Hotkey_Click"/>
+            <StackPanel Grid.Row="1" Grid.Column="1"
+                        Orientation="Horizontal">
+                
+                <TextBlock x:Name="TextBlock_HotKey"
+                           Style="{StaticResource TransparentTextBlock}"
+                           Height="20"
+                           Text="???"
+                           Margin="5,3,5,0"/>
+
+                <Button x:Name="btn_Hotkey"
+                        Style="{DynamicResource BorderButton}"
+                        Grid.Column="1" Grid.Row="1"
+                        Height="40" Width="120"
+                        Content="Register HotKey"
+                        Margin="5,0,0,0"
+                        Click="btn_Hotkey_Click"/>
+
+            </StackPanel>
 
             <Grid Grid.Column="1" Grid.Row="2"
                   VerticalAlignment="Center">
@@ -86,13 +96,13 @@
                 <Button x:Name="btn_CreateSound"
                         Style="{DynamicResource BorderButton}"
                         Content="Create"
-                        Height="40" Width="100"
+                        Height="40" Width="120"
                         Margin="5"
                         Click="btn_CreateSound_Click"/>
                 
                 <Button x:Name="btn_Cancel"
                         Style="{DynamicResource BorderButton}"
-                        Height="40" Width="100"
+                        Height="40" Width="120"
                         Content="Cancel"
                         Margin="5"
                         Click="btn_Cancel_Click"/>
