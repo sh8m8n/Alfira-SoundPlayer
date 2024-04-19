@@ -49,7 +49,7 @@ namespace Alfira.MVVM.Model
 
             Sound sound = e.HotKey as Sound;
 
-            currentAudioFile = new AudioFileReader(sound.FilePath) { Volume = sound.Volume };
+            currentAudioFile = new AudioFileReader(sound.FilePath) { Volume = (float)sound.Volume / 100};
             outputDevice.Init(currentAudioFile);
             outputDevice.Play();
         }
@@ -93,6 +93,7 @@ namespace Alfira.MVVM.Model
         /// <param name="sound"></param>
         public void RemoveSound(Sound sound)
         {
+            File.Delete(sound.FilePath);
             sounds.Remove(sound);
         }
 

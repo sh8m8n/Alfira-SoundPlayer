@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Alfira.MVVM.ViewModel
@@ -69,7 +70,11 @@ namespace Alfira.MVVM.ViewModel
 
         private void DeleteSound(object parameter)
         {
-            soundManager.RemoveSound(parameter as Sound);
+            try
+            {
+                soundManager.RemoveSound(parameter as Sound);
+            }
+            catch { }
         }
     }
 }
