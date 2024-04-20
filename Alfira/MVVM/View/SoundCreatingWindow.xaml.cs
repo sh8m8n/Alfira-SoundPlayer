@@ -20,6 +20,7 @@ namespace Alfira.MVVM.View
             PreviewKeyDown += OnPreviewKeyDown;
             Owner = ownerWindow;
             InitializeComponent();
+            VolumeSlider.Value = 100;
         }
 
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)
@@ -79,6 +80,14 @@ namespace Alfira.MVVM.View
         {
             int value = (int)VolumeSlider.Value;
             VolumeTextBox.Text = value.ToString();
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
         }
     }
 }

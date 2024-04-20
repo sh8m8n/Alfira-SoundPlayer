@@ -44,7 +44,7 @@ namespace Alfira.MVVM.ViewModel
 
             //Выбор файла
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = ".wav only | *.wav";
+            openFileDialog.Filter = ".mp3 | *.mp3; | .wav | *.wav";
 
             bool? success = openFileDialog.ShowDialog();
             if (success == true)

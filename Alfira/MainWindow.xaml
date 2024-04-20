@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Alfira"
         mc:Ignorable="d"
         Height="600" Width="350"
+        WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
         ResizeMode ="NoResize"
@@ -90,7 +91,8 @@
                     <DataTemplate>
                         <Border Background="{DynamicResource Secondary}"
                                 Height="40"
-                                CornerRadius="10">
+                                CornerRadius="10"
+                                Margin="0,0,0,5">
 
                             <Grid VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>

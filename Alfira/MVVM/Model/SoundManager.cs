@@ -80,11 +80,24 @@ namespace Alfira.MVVM.Model
         {
             FileInfo soundFile = new FileInfo(path);
             string newPath = Path.Combine(soundsDirectory.FullName, name + soundFile.Extension);
-            soundFile.CopyTo(newPath);
+
+            if (soundFile.Extension == ".mp3")
+            {
+                using (var reader = new Mp3FileReader(path))
+                {
+                    WaveFileWriter.CreateWaveFile(newPath, reader);
+                }
+            }
+            else
+            {
+                soundFile.CopyTo(newPath);
+            }
 
             Sound sound = new Sound(newPath, name, key, modifiers, volume);
             hotKeyManager.Register(sound);
             sounds.Add(sound);
+
+            SaveData();
         }
 
         /// <summary>
