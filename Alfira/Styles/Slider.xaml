@@ -41,7 +41,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <ControlTemplate x:Key="HorizontalSlider"
                  TargetType="{x:Type Slider}">
         <Grid>
@@ -64,7 +64,7 @@
             Height="4"
             Grid.Row="1"
             BorderThickness="1" Background="{DynamicResource Secondary}"/>
-            
+
             <Track Grid.Row="1"
            x:Name="PART_Track">
                 <Track.DecreaseRepeatButton>
@@ -111,4 +111,5 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+
 </ResourceDictionary>

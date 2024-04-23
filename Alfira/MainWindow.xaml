@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Alfira"
         mc:Ignorable="d"
-        Height="600" Width="350"
+        Height="600" Width="400"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -71,9 +71,9 @@
             <!--Add Sound-->
             <Button Style="{StaticResource MenuButton}"
                     Grid.Row="1"
-                    Content="+Add Sound (.wav)"
+                    Content="+Add Sound (.mp3 / .wav)"
                     Height="40"
-                    Width="340"
+                    Width="auto"
                     Foreground ="{DynamicResource Text}"
                     Background="{StaticResource Secondary}"
                     FontSize="16"
@@ -81,99 +81,101 @@
                     Command="{Binding AddCommand}"/>
 
             <!--Sounds-->
-            <ItemsControl ItemsSource="{Binding Sounds}"
-                          Grid.Row="2"
-                          Background="Transparent"
-                          BorderThickness="0"
-                          Margin="5,0,5,0">
+            <ScrollViewer VerticalScrollBarVisibility="Hidden"
+                          Grid.Row="2">
+                <ItemsControl ItemsSource="{Binding Sounds}"
+                              Background="Transparent"
+                              BorderThickness="0"
+                              Margin="5,0,5,0">
 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border Background="{DynamicResource Secondary}"
-                                Height="40"
-                                CornerRadius="10"
-                                Margin="0,0,0,5">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="{DynamicResource Secondary}"
+                                    Height="40"
+                                    CornerRadius="10"
+                                    Margin="0,0,0,5">
 
-                            <Grid VerticalAlignment="Center">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="90"/>
-                                    <ColumnDefinition Width="90"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
+                                <Grid VerticalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="90"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
 
-                                <!--Name-->
-                                <Border Background="{DynamicResource Primary}"
-                                        Height="20"
-                                        HorizontalAlignment="Stretch"
-                                        CornerRadius="5"
-                                        Margin="5,0,0,0">
-                                    <TextBox Text="{Binding Name}"
-                                             Style="{StaticResource AlfiraTextBox}"
-                                             Margin="5,0,0,0"/>
-                                </Border>
+                                    <!--Name-->
+                                    <Border Background="{DynamicResource Primary}"
+                                            Height="20"
+                                            HorizontalAlignment="Stretch"
+                                            CornerRadius="5"
+                                            Margin="5,0,0,0">
+                                        <TextBox Text="{Binding Name}"
+                                                 Style="{StaticResource AlfiraTextBox}"
+                                                 Margin="5,0,0,0"/>
+                                    </Border>
 
-                                <!--Hotkey-->
-                                <Border Grid.Column="1"
-                                        Background="{DynamicResource Primary}"
-                                        Height="20"
-                                        HorizontalAlignment="Stretch"
-                                        CornerRadius="5"
-                                        Margin="5,0,0,0">
-                                    <TextBlock Text="{Binding Hotkey}"
-                                               HorizontalAlignment="Center"
-                                               Background="Transparent"
-                                               Foreground="{DynamicResource Text}"/>
-                                </Border>
+                                    <!--Hotkey-->
+                                    <Border Grid.Column="1"
+                                            Background="{DynamicResource Primary}"
+                                            Height="20"
+                                            HorizontalAlignment="Stretch"
+                                            CornerRadius="5"
+                                            Margin="5,0,0,0">
+                                        <TextBlock Text="{Binding Hotkey}"
+                                                   HorizontalAlignment="Center"
+                                                   Background="Transparent"
+                                                   Foreground="{DynamicResource Text}"/>
+                                    </Border>
 
-                                <!--Volume-->
-                                <Border Grid.Column="2"
-                                        Background="{DynamicResource Primary}"
-                                        Height="20"
-                                        HorizontalAlignment="Stretch"
-                                        CornerRadius="5"
-                                        Margin="5,0,0,0">
+                                    <!--Volume-->
+                                    <Border Grid.Column="2"
+                                            Background="{DynamicResource Primary}"
+                                            Height="20"
+                                            HorizontalAlignment="Stretch"
+                                            CornerRadius="5"
+                                            Margin="5,0,0,0">
 
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="26"/>
-                                        </Grid.ColumnDefinitions>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="26"/>
+                                            </Grid.ColumnDefinitions>
 
-                                        <Slider Value="{Binding Volume}"
-                                                Template="{StaticResource HorizontalSlider}"
-                                                Minimum="0"
-                                                Maximum="100"
-                                                VerticalAlignment="Center"/>
-                                        
-                                        <TextBlock Text="{Binding Volume}"
-                                                 Grid.Column ="1"
-                                                 HorizontalAlignment="Center"
-                                                 Background="Transparent"
-                                                 Foreground="{DynamicResource Text}"/>
-                                    </Grid>
-                                </Border>
-                                
-                                <!--Delete-->
-                                <Border Background="{DynamicResource Primary}"
-                                        Grid.Column="3"
-                                        CornerRadius="5"
-                                        Margin="5,0,5,0">
-                                    
-                                    <Button Style="{StaticResource MenuButton}"
-                                            Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
-                                            CommandParameter="{Binding}">
-                                        
-                                        <Image Source="./Icons/settings.ico"/>
-                                        
-                                    </Button>
-                                </Border>
-                                
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                                            <Slider Value="{Binding Volume}"
+                                                    Template="{StaticResource HorizontalSlider}"
+                                                    Minimum="0"
+                                                    Maximum="100"
+                                                    VerticalAlignment="Center"/>
+
+                                            <TextBlock Text="{Binding Volume}"
+                                                       Grid.Column ="1"
+                                                       HorizontalAlignment="Center"
+                                                       Background="Transparent"
+                                                       Foreground="{DynamicResource Text}"/>
+                                        </Grid>
+                                    </Border>
+
+                                    <!--Delete-->
+                                    <Border Background="{DynamicResource Primary}"
+                                            Grid.Column="3"
+                                            CornerRadius="5"
+                                            Margin="5,0,5,0">
+
+                                        <Button Style="{StaticResource MenuButton}"
+                                                Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                                CommandParameter="{Binding}">
+
+                                            <Image Source="./Icons/settings.ico"/>
+
+                                        </Button>
+                                    </Border>
+
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
         </Grid>
     </Border>
 </Window>

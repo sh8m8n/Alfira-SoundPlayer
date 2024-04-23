@@ -2,10 +2,15 @@
 using Alfira.MVVM.View;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
+using NAudio.Wave;
+using NAudio.WaveFormRenderer;
+using System;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
+using System.Windows.Media.Imaging;
 
 namespace Alfira.MVVM.ViewModel
 {
@@ -23,6 +28,8 @@ namespace Alfira.MVVM.ViewModel
 
         public MainViewModel(Window window)
         {
+            this.window = window;
+
             CloseCommand = new RelayCommand(OnApplicationClose);
             AddCommand = new RelayCommand(AddSound);
             DeleteCommand = new RelayCommand<object>(DeleteSound);  
@@ -42,7 +49,7 @@ namespace Alfira.MVVM.ViewModel
             ModifierKeys modifiers;
             int volume;
 
-            //Выбор файла
+            //Выбор Файла
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = ".mp3 | *.mp3; | .wav | *.wav";
 
@@ -52,9 +59,29 @@ namespace Alfira.MVVM.ViewModel
             else
                 return;
 
-            //Конфигурация звука
+            //Рендер графического представления звука
+            WaveFormRenderer renderer = new WaveFormRenderer();
+            AudioFileReader audioFileReader = new AudioFileReader(filepath);
 
-            SoundCreatingWindow creatingwindow = new SoundCreatingWindow(window);
+            var settings = new StandardWaveFormRendererSettings()
+            {
+                BackgroundColor = Color.Transparent,
+                Width = 330,
+                TopHeight = 18,
+                BottomHeight = 18,
+            };
+
+            Bitmap SoundRenderBitmap = new Bitmap(renderer.Render(audioFileReader, settings) );
+
+            audioFileReader.Dispose();
+
+            BitmapSource soundRenderBitMap = Imaging.CreateBitmapSourceFromHBitmap(SoundRenderBitmap.GetHbitmap(),
+                System.IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+
+            int soundLength = (int)audioFileReader.TotalTime.TotalMilliseconds;
+
+            //Конфигурация звука
+            SoundCreatingWindow creatingwindow = new SoundCreatingWindow(window, soundRenderBitMap, soundLength);
             creatingwindow.ShowDialog();
 
             if(creatingwindow.Success == true)
@@ -64,17 +91,21 @@ namespace Alfira.MVVM.ViewModel
                 modifiers = creatingwindow.modifiers;
                 volume = creatingwindow.Volume;
 
-                soundManager.AddSound(filepath, name, key, modifiers, volume);
+                if( creatingwindow.StartTrim == 0 &&  creatingwindow.EndTrim == soundLength )
+                {
+                    soundManager.AddSound(filepath, name, key, modifiers, volume);
+                }
+                else
+                {
+                    soundManager.AddSound(filepath, name, key, modifiers, volume, TimeSpan.FromMilliseconds(creatingwindow.StartTrim),
+                        TimeSpan.FromMilliseconds(creatingwindow.EndTrim));
+                }
             }
         }
 
         private void DeleteSound(object parameter)
         {
-            try
-            {
                 soundManager.RemoveSound(parameter as Sound);
-            }
-            catch { }
         }
     }
 }
