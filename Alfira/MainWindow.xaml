@@ -29,23 +29,29 @@
 
                 <Grid HorizontalAlignment="Stretch">
 
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center">
-                        
-                        <!--Settings-->
-                        <Button Style="{StaticResource MenuButton}"
-                                Content="S"
-                                Foreground="{DynamicResource Text}"
-                                Margin="3,0,0,0"/>
+                    <!--Settings-->
+                    <Menu Height="25" 
+                          Background="{DynamicResource Primary}"
+                          Foreground="{DynamicResource Text}"
+                          HorizontalAlignment="Left"
+                          Margin="10,0,0,0">
+                        <MenuItem Header="Settings" Height="25">
+                            <MenuItem Header="Output">
+                                <ComboBox/>
+                            </MenuItem>
+                            <MenuItem Header="Theme">
+                                <ComboBox/>
+                            </MenuItem>
+                        </MenuItem>
 
-                        <!--Title-->
-                        <Label Content="Alfira"
-                               Foreground="{DynamicResource Text}"
-                               VerticalAlignment="Center"
-                               Margin="3,0,0,0"/>
+                    </Menu>
 
-                    </StackPanel>
+                    <!--Title-->
+                    <Label Content="Alfira"
+                           Foreground="{DynamicResource Text}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Margin="3,0,0,0"/>
 
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Right"

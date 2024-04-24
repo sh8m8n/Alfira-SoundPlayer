@@ -6,7 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="./Themes/Alfira.xaml"/>
+                <ResourceDictionary Source="./Themes/TieflingAsmodeusTheme.xaml"/>
                 <ResourceDictionary Source="./Styles/Buttons.xaml"/>
                 <ResourceDictionary Source="./Styles/Slider.xaml"/>
                 <ResourceDictionary Source="./Styles/TextControls.xaml"/>

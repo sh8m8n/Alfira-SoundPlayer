@@ -7,6 +7,7 @@ using NAudio.WaveFormRenderer;
 using System;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -69,11 +70,11 @@ namespace Alfira.MVVM.ViewModel
                 Width = 330,
                 TopHeight = 18,
                 BottomHeight = 18,
+                BottomPeakPen = new Pen(Color.White),
             };
 
-            Bitmap SoundRenderBitmap = new Bitmap(renderer.Render(audioFileReader, settings) );
+            Bitmap SoundRenderBitmap = new Bitmap(renderer.Render(audioFileReader, settings));
 
-            audioFileReader.Dispose();
 
             BitmapSource soundRenderBitMap = Imaging.CreateBitmapSourceFromHBitmap(SoundRenderBitmap.GetHbitmap(),
                 System.IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
@@ -106,6 +107,17 @@ namespace Alfira.MVVM.ViewModel
         private void DeleteSound(object parameter)
         {
                 soundManager.RemoveSound(parameter as Sound);
+        }
+
+        private void SwitchTheme(string themeName)
+        {
+
+            ResourceDictionary newTheme = new ResourceDictionary();
+            newTheme.Source = new Uri($".//Themes/{themeName}Theme.xaml", UriKind.Relative);
+
+            ResourceDictionary themeManager = Application.Current.Resources["ThemeManager"] as ResourceDictionary;
+            themeManager.MergedDictionaries.Clear();
+            themeManager.MergedDictionaries.Add(newTheme);
         }
     }
 }

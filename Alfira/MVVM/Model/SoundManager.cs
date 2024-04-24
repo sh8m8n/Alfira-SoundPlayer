@@ -127,8 +127,14 @@ namespace Alfira.MVVM.Model
         /// <param name="sound"></param>
         public void RemoveSound(Sound sound)
         {
-            File.Delete(sound.FilePath);
-            sounds.Remove(sound);
+            try
+            {
+                hotKeyManager.Unregister(sound);
+                File.Delete(sound.FilePath);
+                sounds.Remove(sound);
+                SaveData();
+            }
+            catch { }
         }
 
         /// <summary>
